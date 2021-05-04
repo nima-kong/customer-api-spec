@@ -1,0 +1,5 @@
+scripts:
+  lint: inso lint spec "customer"
+  test: inso run test "customer"
+  config:declarative: inso generate config "customer" --type declarative
+  export: inso export spec "customer" --output workspaces/default/specs/customer.yaml
