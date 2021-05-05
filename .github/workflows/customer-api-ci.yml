@@ -34,6 +34,7 @@ jobs:
       # We will push to the Kong dev portal
       - name: Deploy to dev portal
         run: |
+          echo ${{ secrets.KONG_ADDR }}
           inso script export
           cp workspaces/default/cli.conf.yaml.example workspaces/default/cli.conf.yaml
           portal deploy --preserve default
