@@ -29,7 +29,7 @@ jobs:
       - name: Install inso globally
         run: npm install -g insomnia-inso kong-portal-cli
       - name: Validate specification
-        run: inso script lint --ci
+        run: inso lint spec customer --ci
       
       # We will push to the Kong dev portal
       - name: Deploy to dev portal
