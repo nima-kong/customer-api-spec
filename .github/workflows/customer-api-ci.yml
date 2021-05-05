@@ -43,14 +43,15 @@ jobs:
           inso script export
           cp workspaces/default/cli.conf.yaml.example workspaces/default/cli.conf.yaml
           portal deploy --preserve default
-        env:
-          KONG_ADMIN_URL: ${{ secrets.KONG_ADDR }}
+        
     # This is a placeholder for deploying your API to a pr/qa environment
       - name: Deploy upstreams
         run: pwd
       # Generate declarative config
       - name: Generate declarative config
-        run: inso script config:declarative --output kong.yaml --ci
+        run: |
+          inso script config:declarative --output kong.yaml --ci
+          cat kong.yaml
      # Ping the Kong instance
       # Sync to Kong
       - name: Update Kong
