@@ -55,7 +55,7 @@ jobs:
      # Ping the Kong instance
       # Sync to Kong
       - name: Update Kong
-        run: deck ping --kong-addr ${{ secrets.KONG_ADDR }} && deck sync --headers "kong-admin-token:default_admin" --workspace default --skip-consumers --kong-addr ${{ secrets.KONG_ADDR }} > sync.output.txt
+        run: deck ping --kong-addr http://ec2-52-65-47-91.ap-southeast-2.compute.amazonaws.com:32216 && deck sync --headers "kong-admin-token:default_admin" --workspace default --skip-consumers --kong-addr http://ec2-52-65-47-91.ap-southeast-2.compute.amazonaws.com:32216 > sync.output.txt
             
       # Run tests
       - name: Run test suites
