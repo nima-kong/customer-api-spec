@@ -1,0 +1,14 @@
+_id: env_env_c1cc289eb99a1d41a01374542fe30403f21011f1_sub
+type: Environment
+parentId: env_c1cc289eb99a1d41a01374542fe30403f21011f1
+modified: 1619654917416
+created: 1619654917416
+name: OpenAPI env
+data:
+  scheme: http
+  base_path: ""
+  host: customer-api.default.svc.cluster.local:7050
+dataPropertyOrder: null
+color: null
+isPrivate: false
+metaSortKey: 1619654917416

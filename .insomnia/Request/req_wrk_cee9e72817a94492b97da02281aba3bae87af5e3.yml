@@ -1,0 +1,24 @@
+_id: req_wrk_cee9e72817a94492b97da02281aba3bae87af5e3
+type: Request
+parentId: wrk_cee9e72817a94492b97da02281aba3ba
+modified: 1619654917413
+created: 1619654917413
+url: "{{ base_url }}/customers"
+name: List all customers
+description: ""
+method: GET
+body: {}
+parameters:
+  - name: limit
+    disabled: true
+    value: "0"
+headers: []
+authentication: {}
+metaSortKey: -1619654917413
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
