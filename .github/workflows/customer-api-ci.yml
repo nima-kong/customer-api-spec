@@ -55,7 +55,15 @@ jobs:
         run: |
           inso script config:declarative --output kong.yaml --ci
           cat kong.yaml
-     # Ping the Kong instance
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: "http://customer-api-dev.default.svc.cluster.local:7050"
+          replace: "http://customer-api.default.svc.cluster.local:7050"
+      - name: Print Kong.yaml
+        run: |          
+          cat kong.yaml
+      # Ping the Kong instance
       # Sync to Kong
       - name: Update Kong
         run: deck ping --headers "kong-admin-token:${{ secrets.KONG_ADMIN_TOKEN }}" --kong-addr ${{ secrets.KONG_ADDR }} && deck sync --headers "kong-admin-token:${{ secrets.KONG_ADMIN_TOKEN }}" --workspace default --skip-consumers --kong-addr ${{ secrets.KONG_ADDR }} > sync.output.txt
