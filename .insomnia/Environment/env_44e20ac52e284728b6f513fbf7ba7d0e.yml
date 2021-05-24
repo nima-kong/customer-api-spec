@@ -1,0 +1,18 @@
+_id: env_44e20ac52e284728b6f513fbf7ba7d0e
+type: Environment
+parentId: env_c1cc289eb99a1d41a01374542fe30403f21011f1
+modified: 1621833726843
+created: 1621833719711
+name: Test
+data:
+  scheme: http
+  base_path: ""
+  host: ec2-52-65-47-91.ap-southeast-2.compute.amazonaws.com:31047
+dataPropertyOrder:
+  "&":
+    - scheme
+    - base_path
+    - host
+color: null
+isPrivate: false
+metaSortKey: 1621816972440
