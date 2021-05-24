@@ -1,14 +1,18 @@
 _id: env_env_c1cc289eb99a1d41a01374542fe30403f21011f1_sub
 type: Environment
 parentId: env_c1cc289eb99a1d41a01374542fe30403f21011f1
-modified: 1619654917416
-created: 1619654917416
-name: OpenAPI env
+modified: 1621832568961
+created: 1621816972390
+name: Dev
 data:
   scheme: http
   base_path: ""
-  host: customer-api.default.svc.cluster.local:7050
-dataPropertyOrder: null
+  host: ec2-52-65-47-91.ap-southeast-2.compute.amazonaws.com:31047
+dataPropertyOrder:
+  "&":
+    - scheme
+    - base_path
+    - host
 color: null
 isPrivate: false
-metaSortKey: 1619654917416
+metaSortKey: 1621816972390
