@@ -43,6 +43,9 @@ jobs:
           inso script export
           cp workspaces/default/cli.conf.yaml.example workspaces/default/cli.conf.yaml
           portal deploy --preserve default
+        env:
+          KONG_ADMIN_URL: ${{ secrets.KONG_ADDR }}
+          KONG_ADMIN_TOKEN: ${{ secrets.KONG_ADMIN_TOKEN }}
         
     # This is a placeholder for deploying your API to a pr/qa environment
       - name: Deploy upstreams
@@ -55,7 +58,7 @@ jobs:
      # Ping the Kong instance
       # Sync to Kong
       - name: Update Kong
-        run: deck ping --headers "kong-admin-token:default_admin" --kong-addr http://ec2-52-65-47-91.ap-southeast-2.compute.amazonaws.com:32216 && deck sync --headers "kong-admin-token:default_admin" --workspace default --skip-consumers --kong-addr http://ec2-52-65-47-91.ap-southeast-2.compute.amazonaws.com:32216 > sync.output.txt
+        run: deck ping --headers "kong-admin-token:${{ secrets.KONG_ADMIN_TOKEN }}" --kong-addr ${{ secrets.KONG_ADDR }} && deck sync --headers "kong-admin-token:${{ secrets.KONG_ADMIN_TOKEN }}" --workspace default --skip-consumers --kong-addr ${{ secrets.KONG_ADDR }} > sync.output.txt
             
       # Run tests
       - name: Run test suites
