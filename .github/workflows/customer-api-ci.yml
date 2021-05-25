@@ -54,12 +54,14 @@ jobs:
       - name: Generate declarative config
         run: |
           inso script config:declarative --output kong.yaml --ci
+          ls
           cat kong.yaml
       - name: Find and Replace
-        uses: datamonsters/replace-action@v1
+        uses: cschleiden/replace-tokens@v1
         with:
-          files: 'Kong.yaml'
-          replacements: 'http://customer-api-dev.default.svc.cluster.local:7050=http://customer-api.default.svc.cluster.local:7050'       
+          files: '["**/*.yaml"]'
+        env:
+          UPSTREAM_SERVER_URL: 'http://customer-api.default.svc.cluster.local:7050'                
       - name: Print Kong.yaml
         run: |          
           cat kong.yaml
