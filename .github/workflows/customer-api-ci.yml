@@ -29,9 +29,11 @@ jobs:
         with:
           tokenPrefix: '__'
           tokenSuffix: '__'
-          files: '["**/*.yml"]'
+          files: '["./.insomnia/ApiSpec/*.yml"]'
         env:
           UPSTREAM_SERVER_URL: 'http://customer-api.default.svc.cluster.local:7050'      
+      - name: Display insomnia yml file
+        run: cat ./.insomnia/ApiSpec/spc_23e2912a316746c2ae945cdc57645af2.yml
       - name: Install NodeJS
         uses: actions/setup-node@v1
       - name: Install Deck  
