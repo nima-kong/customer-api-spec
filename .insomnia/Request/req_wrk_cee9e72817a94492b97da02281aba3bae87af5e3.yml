@@ -1,7 +1,7 @@
 _id: req_wrk_cee9e72817a94492b97da02281aba3bae87af5e3
 type: Request
 parentId: wrk_cee9e72817a94492b97da02281aba3ba
-modified: 1619654917413
+modified: 1621920040377
 created: 1619654917413
 url: "{{ base_url }}/customers"
 name: List all customers
@@ -12,7 +12,12 @@ parameters:
   - name: limit
     disabled: true
     value: "0"
-headers: []
+    id: pair_2dfa4458a2314e1fb00e3b46d1de1129
+headers:
+  - name: apikey
+    value: insomnia
+    description: ""
+    id: pair_290eff61b1334d488e33ced92a9bb078
 authentication: {}
 metaSortKey: -1619654917413
 isPrivate: false
