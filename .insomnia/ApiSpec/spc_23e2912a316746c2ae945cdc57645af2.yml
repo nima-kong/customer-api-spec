@@ -1,7 +1,7 @@
 _id: spc_23e2912a316746c2ae945cdc57645af2
 type: ApiSpec
 parentId: wrk_cee9e72817a94492b97da02281aba3ba
-modified: 1621903679576
+modified: 1621917102164
 created: 1619652908962
 fileName: customer
 contents: |-
@@ -13,7 +13,7 @@ contents: |-
       name: Kong
 
   servers:
-    - url: __UPSTREAM_SERVER_URL__
+    - url: ${UPSTREAM_SERVER_URL}$
       description: Upstream server URL
 
   paths:
