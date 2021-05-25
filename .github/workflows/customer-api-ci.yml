@@ -24,6 +24,14 @@ jobs:
     steps:
       - name: Checkout branch
         uses: actions/checkout@v1
+      - name: Find and Replace
+        uses: cschleiden/replace-tokens@v1
+        with:
+          tokenPrefix: '__'
+          tokenSuffix: '__'
+          files: '["**/*.yml"]'
+        env:
+          UPSTREAM_SERVER_URL: 'http://customer-api.default.svc.cluster.local:7050'      
       - name: Install NodeJS
         uses: actions/setup-node@v1
       - name: Install Deck  
@@ -55,15 +63,7 @@ jobs:
         run: |
           inso script config:declarative --output kong.yaml --ci
           ls
-          cat kong.yaml
-      - name: Find and Replace
-        uses: cschleiden/replace-tokens@v1
-        with:
-          tokenPrefix: '__'
-          tokenSuffix: '__'
-          files: '["**/*.yaml"]'
-        env:
-          UPSTREAM_SERVER_URL: 'http://customer-api.default.svc.cluster.local:7050'                
+          cat kong.yaml                
       - name: Print Kong.yaml
         run: |          
           cat kong.yaml
