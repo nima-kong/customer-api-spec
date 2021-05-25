@@ -49,7 +49,7 @@ jobs:
       # We will push to the Kong dev portal
       - name: Deploy to dev portal
         run: |          
-          inso script export
+          inso script export --output workspaces/default/customer/customer.yaml
           cp workspaces/customer/cli.conf.yaml.example workspaces/customer/cli.conf.yaml
           portal deploy --preserve customer
         env:
