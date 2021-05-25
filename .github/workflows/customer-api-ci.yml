@@ -56,10 +56,10 @@ jobs:
           inso script config:declarative --output kong.yaml --ci
           cat kong.yaml
       - name: Find and Replace
-        uses: jacobtomlinson/gha-find-replace@master
+        uses: ./.github/actions/replace
         with:
-          find: "http://customer-api-dev.default.svc.cluster.local:7050"
-          replace: "http://customer-api.default.svc.cluster.local:7050"
+          files: 'Kong.yaml'
+          replacements: 'http://customer-api-dev.default.svc.cluster.local:7050=http://customer-api.default.svc.cluster.local:7050'       
       - name: Print Kong.yaml
         run: |          
           cat kong.yaml
