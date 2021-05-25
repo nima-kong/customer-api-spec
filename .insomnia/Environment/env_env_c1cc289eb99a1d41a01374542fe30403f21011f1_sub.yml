@@ -5,7 +5,8 @@ modified: 1621834423162
 created: 1621816972390
 name: Dev
 data:
-  scheme: http
+  scheme:
+    - http
   base_path: ""
   host: ec2-52-65-47-91.ap-southeast-2.compute.amazonaws.com:31047
 dataPropertyOrder:
