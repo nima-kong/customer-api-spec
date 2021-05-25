@@ -27,8 +27,8 @@ jobs:
       - name: Find and Replace
         uses: cschleiden/replace-tokens@v1
         with:
-          tokenPrefix: '__'
-          tokenSuffix: '__'
+          tokenPrefix: '${'
+          tokenSuffix: '}$'
           files: '["./.insomnia/ApiSpec/*.yml"]'
         env:
           UPSTREAM_SERVER_URL: 'http://customer-api.default.svc.cluster.local:7050'      
@@ -48,8 +48,7 @@ jobs:
       
       # We will push to the Kong dev portal
       - name: Deploy to dev portal
-        run: |
-          echo ${{ secrets.KONG_ADDR }}
+        run: |          
           inso script export
           cp workspaces/default/cli.conf.yaml.example workspaces/default/cli.conf.yaml
           portal deploy --preserve default
@@ -63,9 +62,7 @@ jobs:
       # Generate declarative config
       - name: Generate declarative config
         run: |
-          inso script config:declarative --output kong.yaml --ci
-          ls
-          cat kong.yaml                
+          inso script config:declarative --output kong.yaml --ci                    
       - name: Print Kong.yaml
         run: |          
           cat kong.yaml
