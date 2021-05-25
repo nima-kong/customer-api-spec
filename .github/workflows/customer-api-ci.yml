@@ -69,7 +69,7 @@ jobs:
       # Ping the Kong instance
       # Sync to Kong
       - name: Update Kong
-        run: deck ping --headers "kong-admin-token:${{ secrets.KONG_ADMIN_TOKEN }}" --kong-addr ${{ secrets.KONG_ADDR }} && deck sync --headers "kong-admin-token:${{ secrets.KONG_ADMIN_TOKEN }}" --workspace default --skip-consumers --kong-addr ${{ secrets.KONG_ADDR }} > sync.output.txt
+        run: deck ping --headers "kong-admin-token:${{ secrets.KONG_ADMIN_TOKEN }}" --kong-addr ${{ secrets.KONG_ADDR }} && deck sync --headers "kong-admin-token:${{ secrets.KONG_ADMIN_TOKEN }}" --workspace customer --skip-consumers --kong-addr ${{ secrets.KONG_ADDR }} > sync.output.txt
             
       # Run tests
       - name: Run test suites
