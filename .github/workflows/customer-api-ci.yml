@@ -56,7 +56,7 @@ jobs:
           inso script config:declarative --output kong.yaml --ci
           cat kong.yaml
       - name: Find and Replace
-        uses: ./.github/actions/replace
+        uses: datamonsters/replace-action@v1
         with:
           files: 'Kong.yaml'
           replacements: 'http://customer-api-dev.default.svc.cluster.local:7050=http://customer-api.default.svc.cluster.local:7050'       
