@@ -59,6 +59,8 @@ jobs:
       - name: Find and Replace
         uses: cschleiden/replace-tokens@v1
         with:
+          tokenPrefix: '__'
+          tokenSuffix: '__'
           files: '["**/*.yaml"]'
         env:
           UPSTREAM_SERVER_URL: 'http://customer-api.default.svc.cluster.local:7050'                
