@@ -24,14 +24,11 @@ jobs:
     steps:
       - name: Checkout branch
         uses: actions/checkout@v1
-      - name: Find and Replace
-        uses: cschleiden/replace-tokens@v1
-        with:
-          tokenPrefix: '${'
-          tokenSuffix: '}$'
-          files: '["./.insomnia/ApiSpec/*.yml"]'
-        env:
-          UPSTREAM_SERVER_URL: 'http://customer-api.default.svc.cluster.local:7050'      
+      - name: Backup OAS Spec
+        run: |
+          mkdir ./spec-backup
+          cp ./.insomnia/ApiSpec/*.yml ./spec-backup
+          ls ./spec-backup      
       - name: Display insomnia yml file
         run: cat ./.insomnia/ApiSpec/spc_23e2912a316746c2ae945cdc57645af2.yml
       - name: Install NodeJS
@@ -45,7 +42,14 @@ jobs:
         run: npm install -g insomnia-inso kong-portal-cli
       - name: Validate specification
         run: inso lint spec customer --ci
-      
+      - name: Prepare URL 4 Portal
+        uses: cschleiden/replace-tokens@v1
+        with:
+          tokenPrefix: '${'
+          tokenSuffix: '}$'
+          files: '["./.insomnia/ApiSpec/*.yml"]'
+        env:
+          UPSTREAM_SERVER_URL: '${{ secrets.KONG_PROXY_ADDR }}'      
       # We will push to the Kong dev portal
       - name: Deploy to dev portal
         run: |          
@@ -59,6 +63,18 @@ jobs:
     # This is a placeholder for deploying your API to a pr/qa environment
       - name: Deploy upstreams
         run: pwd
+      - name: Restore OAS Spec
+        run: |
+          cp  ./spec-backup/*.yml ./.insomnia/ApiSpec         
+          cat ./.insomnia/ApiSpec/spc_23e2912a316746c2ae945cdc57645af2.yml
+      - name: Prepare URL 4 Declarative Services
+        uses: cschleiden/replace-tokens@v1
+        with:
+          tokenPrefix: '${'
+          tokenSuffix: '}$'
+          files: '["./.insomnia/ApiSpec/*.yml"]'
+        env:
+          UPSTREAM_SERVER_URL: '${{ secrets.UPSTREAM_SERVER_URL }}'
       # Generate declarative config
       - name: Generate declarative config
         run: |
