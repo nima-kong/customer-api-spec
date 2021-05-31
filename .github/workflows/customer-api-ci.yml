@@ -18,8 +18,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  validate:
-    name: Validate Customer API spec
+  deploy-customer-api:
+    name: Deploy Customer API to Gateway
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
@@ -28,9 +28,8 @@ jobs:
         run: |
           mkdir ./spec-backup
           cp ./.insomnia/ApiSpec/*.yml ./spec-backup
-          ls ./spec-backup      
-      - name: Display insomnia yml file
-        run: cat ./.insomnia/ApiSpec/spc_23e2912a316746c2ae945cdc57645af2.yml
+          ls ./spec-backup            
+      #Installing the inso, deck and portal cli
       - name: Install NodeJS
         uses: actions/setup-node@v1
       - name: Install Deck  
@@ -38,10 +37,13 @@ jobs:
           curl -sL https://github.com/kong/deck/releases/download/v1.6.0/deck_1.6.0_linux_amd64.tar.gz -o deck.tar.gz
           tar -xf deck.tar.gz -C /tmp
           sudo cp /tmp/deck /usr/local/bin/ 
-      - name: Install inso globally
+      - name: Install inso
         run: npm install -g insomnia-inso kong-portal-cli
+      # API Spec linting
       - name: Validate specification
         run: inso lint spec customer --ci
+      
+      # Deploy Customer OAS spec to the Dev Portal
       - name: Prepare URL 4 Portal
         uses: cschleiden/replace-tokens@v1
         with:
@@ -59,14 +61,10 @@ jobs:
         env:
           KONG_ADMIN_URL: ${{ secrets.KONG_ADDR }}
           KONG_ADMIN_TOKEN: ${{ secrets.KONG_ADMIN_TOKEN }}
-        
-    # This is a placeholder for deploying your API to a pr/qa environment
-      - name: Deploy upstreams
-        run: pwd
+            
       - name: Restore OAS Spec
         run: |
-          cp  ./spec-backup/*.yml ./.insomnia/ApiSpec         
-          cat ./.insomnia/ApiSpec/spc_23e2912a316746c2ae945cdc57645af2.yml
+          cp  ./spec-backup/*.yml ./.insomnia/ApiSpec                   
       - name: Prepare URL 4 Declarative Services
         uses: cschleiden/replace-tokens@v1
         with:
@@ -75,13 +73,11 @@ jobs:
           files: '["./.insomnia/ApiSpec/*.yml"]'
         env:
           UPSTREAM_SERVER_URL: '${{ secrets.UPSTREAM_SERVER_URL }}'
+      
       # Generate declarative config
       - name: Generate declarative config
         run: |
-          inso script config:declarative --output kong.yaml --ci                    
-      - name: Print Kong.yaml
-        run: |          
-          cat kong.yaml
+          inso script config:declarative --output kong.yaml --ci                         
       # Ping the Kong instance
       # Sync to Kong
       - name: Update Kong
