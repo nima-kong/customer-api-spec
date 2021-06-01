@@ -19,12 +19,12 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   deploy-customer-api:
-    name: Deploy Customer API to Gateway
+    name: Deploy Customer API to Gateway and Dev Portal
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
         uses: actions/checkout@v1
-      - name: Backup OAS Spec
+      - name: Backup Insomnia Spec
         run: |
           mkdir ./spec-backup
           cp ./.insomnia/ApiSpec/*.yml ./spec-backup
