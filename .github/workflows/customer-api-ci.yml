@@ -86,6 +86,6 @@ jobs:
             
       # Run tests
       - name: Run test suites
-        run: inso run test customer -e '$TARGET_ENVIRONMENT'
+        run: inso run test customer -e ${{ env.TARGET_ENVIRONMENT }}
         env:
           TARGET_ENVIRONMENT: Dev
