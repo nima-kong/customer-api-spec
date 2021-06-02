@@ -1,7 +1,7 @@
 _id: spc_23e2912a316746c2ae945cdc57645af2
 type: ApiSpec
 parentId: wrk_cee9e72817a94492b97da02281aba3ba
-modified: 1622424646004
+modified: 1622615178764
 created: 1619652908962
 fileName: customer
 contents: |
@@ -68,7 +68,7 @@ contents: |
             type: integer
             format: int64
           customerName:
-            type: string
+            type: string          
         example:
           id:123
           customerName:'John Smith'
