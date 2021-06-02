@@ -55,7 +55,7 @@ jobs:
       # We will push to the Kong dev portal
       - name: Deploy to dev portal
         run: |          
-          inso script export --output workspaces/customer/specs/customer.yaml
+          inso export spec "customer" --output workspaces/default/specs/customer.yaml
           cp workspaces/customer/cli.conf.yaml.example workspaces/customer/cli.conf.yaml
           portal deploy --preserve customer
         env:
@@ -77,7 +77,8 @@ jobs:
       # Generate declarative config
       - name: Generate declarative config
         run: |
-          inso script config:declarative --output kong.yaml --ci                         
+          inso generate config "customer" --type declarative --output kong.yaml
+          # inso script config:declarative --output kong.yaml                         
       # Ping the Kong instance
       # Sync to Kong
       - name: Update Kong
@@ -85,4 +86,6 @@ jobs:
             
       # Run tests
       - name: Run test suites
-        run: inso script test --ci
+        run: inso run test customer -e '$TARGET_ENVIRONMENT'
+        env:
+          TARGET_ENVIRONMENT: Dev
